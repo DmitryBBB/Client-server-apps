@@ -1,13 +1,10 @@
 # Каждое из слов «class », «function», «method» записать в байтовом типе
 # без преобразования в последовательность кодов (не используя методы encode и decode)
 # и определить тип, содержимое и длину соответствующих переменных.2
-LST_STR = ['class', 'function', 'method']
+LST_STR = [b'class', b'function', b'method']
+
+for i in LST_STR:
+    print(f'тип: {type(i)}, {i}, длинна {len(i)}')
 
 
-def conversion_to_bytes(lst):
-    for i in lst:
-        j = bytes(i, encoding='utf-8')
-        print(f'тип: {type(j)}, {j}, длинна {len(j)}')
 
-
-conversion_to_bytes(LST_STR)

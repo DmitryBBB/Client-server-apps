@@ -8,7 +8,7 @@ LST_STR = ['attribute', 'класс', 'функция', 'type']
 
 def conversion_to_bytes(lst):
     for i in lst:
-        j = bytes(i, encoding='utf-8')
+        j = i.encode('utf-8')
         print(f'тип: {type(j)}, {j}')
 
 
