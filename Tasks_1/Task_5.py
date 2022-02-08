@@ -1,25 +1,44 @@
 # Выполнить пинг веб-ресурсов yandex.ru, youtube.com
 # и преобразовать результаты из байтовового в строковый тип на кириллице.5
 
-
 import subprocess
 
-args = ['ping', 'yandex.ru']
-args2 = ['ping', 'youtube.com']
+import chardet
+
+args_lst = ['yandex.ru', 'youtube.com']
+
+args2 = 'yandex.ru'
+args1 = 'youtube.com'
 
 
-# subproc_ping = subprocess.Popen(args, stdout=subprocess.PIPE)
+# def ping_web(ping_list):
+#     param = '-n' if platform.system().lower() == 'windows' else '-c'
+#     for args in ping_list:
+#         args = ['ping', param, '2', args]
+#         result = subprocess.Popen(args, stdout=subprocess.PIPE)
+#         for line in result.stdout:
+#             result = chardet.detect(line)
+#             print(f'result: {result}')
+#             line = line.decode(result['encoding']).encode('utf-8')
+#             print(line.decode('utf-8'))
+#         print('---------------------------------------')
 #
-# for line in subproc_ping.stdout:
-#     line = line.decode('cp866').encode('utf-8')
-#     print(line.decode('utf-8'))
+#
+# ping_web(args_lst)
 
-def ping_process(lst):
-    subproc_ping = subprocess.Popen(lst, stdout=subprocess.PIPE)
-    for line in subproc_ping.stdout:
-        line = line.decode('cp866').encode('utf-8')
+
+def ping_service(link):
+    args = ['ping', link]
+    ping = subprocess.Popen(args, stdout=subprocess.PIPE)
+    count = 0
+    for line in ping.stdout:
+        result = chardet.detect(line)
+        line = line.decode(result['encoding']).encode('utf-8')
         print(line.decode('utf-8'))
+        if count == 4:
+            break
+        count += 1
 
 
-ping_process(args)
-ping_process(args2)
+ping_service(args2)
+ping_service(args1)
