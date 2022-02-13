@@ -15,10 +15,15 @@ MY_DICT = {
 
 
 def recording_data_yaml(data):
-    with open('file.yaml', 'w') as f_n:
+    with open('file.yaml', 'w', encoding='utf-8') as f_n:
         yaml.dump(data, f_n, default_flow_style=True, allow_unicode=True)
-    with open('file.yaml') as f_n:
+    with open('file.yaml', encoding='utf-8') as f_n:
         print(f_n.read())
 
 
 recording_data_yaml(MY_DICT)
+
+with open('file.yaml', 'r', encoding='utf-8') as f_out:
+    DATA_OUT = yaml.load(f_out, Loader=yaml.SafeLoader)
+
+print(MY_DICT == DATA_OUT)
