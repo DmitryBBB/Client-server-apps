@@ -1,6 +1,9 @@
 import json
+import os
+import sys
 
-from Tasks_3.common.veriables import MAX_PACKAGE_LENGTH, ENCODING
+sys.path.append(os.path.join(os.getcwd(), 'common'))
+from veriables import MAX_PACKAGE_LENGTH, ENCODING
 
 
 def get_message(client):

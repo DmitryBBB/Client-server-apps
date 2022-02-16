@@ -1,10 +1,11 @@
 import json
+import os.path
 import socket
 import sys
 from socket import *
-
-from Tasks_3.common.utils import get_message, send_message
-from Tasks_3.common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, RESPONDEFAULT_IP_ADRESSE, \
+sys.path.append(os.path.join(os.getcwd(), '..'))
+from common.utils import get_message, send_message
+from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, RESPONDEFAULT_IP_ADRESSE, \
     ERROR, MAX_CONNECTIONS, DEFAULT_PORT
 
 
