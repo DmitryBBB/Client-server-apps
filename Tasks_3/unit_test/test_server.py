@@ -4,10 +4,12 @@ import sys
 import unittest
 from pprint import pprint
 
-pprint(sys.argv)
 sys.path.append(os.path.join(os.getcwd(), '..'))
+pprint(sys.argv)
 from common.veriables import RESPONSE, ERROR, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME
 from server import process_client_message
+
+
 
 
 class TestServer(unittest.TestCase):
