@@ -1,18 +1,17 @@
 # Тесты клиента
 
-import sys
 import os
+import sys
 import unittest
 from pprint import pprint
 
 pprint(sys.path)
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from client import create_presence, process_ans
-from common.veriables import TIME, ACTION, PRESENCE, USER, ACCOUNT_NAME, RESPONSE
+from common.veriables import TIME, ACTION, PRESENCE, USER, ACCOUNT_NAME, RESPONSE, ERROR
 
 
 class TestClass(unittest.TestCase):
-
 
     def test_def_presense(self):
         # Тест корректного запроса
@@ -22,11 +21,10 @@ class TestClass(unittest.TestCase):
         # никогда не будет пройден
         self.assertEqual(test, {ACTION: PRESENCE, TIME: 1.1, USER: {ACCOUNT_NAME: 'Guest'}})
 
-
     def test_200_ans(self):
         # Тест корректного разбора ответа 200
         self.assertEqual(process_ans({RESPONSE: 200}), '200 : Ok')
 
     def test_400_ans(self):
         # Тест корректного разбора ответа
-        self.assertEqual(process_ans({RESPONSE: 400}), '200 : Ok')
+        self.assertEqual(process_ans({RESPONSE: 400, ERROR: 'Bad Request'}), '400 : Bad Request')
