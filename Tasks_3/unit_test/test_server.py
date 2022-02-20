@@ -5,17 +5,15 @@ import unittest
 from pprint import pprint
 
 sys.path.append(os.path.join(os.getcwd(), '..'))
-pprint(sys.argv)
+pprint(sys.path)
 from common.veriables import RESPONSE, ERROR, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME
 from server import process_client_message
-
-
 
 
 class TestServer(unittest.TestCase):
     err_dict = {
         RESPONSE: 400,
-        ERROR: 'BAD Request'
+        ERROR: 'Bad Request'
     }
     ok_dict = {RESPONSE: 200}
 
@@ -49,7 +47,7 @@ class TestServer(unittest.TestCase):
             {ACTION: PRESENCE, TIME: '1.1'}), self.err_dict
         )
 
-    def test_anknown_user(self):
+    def test_unknown_user(self):
         # Ошибка если не Guest
         self.assertEqual(process_client_message(
             {ACTION: PRESENCE, TIME: '1.1', USER: {ACCOUNT_NAME: 'Guest1'}}), self.err_dict

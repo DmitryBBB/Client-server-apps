@@ -2,7 +2,9 @@ import json
 import os
 import sys
 import unittest
+
 sys.path.append(os.path.join(os.getcwd(), '..'))
+
 from common.utils import send_message, get_message
 from common.veriables import ENCODING, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR
 
@@ -16,7 +18,6 @@ class TestSocket:
         self.encoded_message = None
         self.received_message = None
 
-
     def send(self, message_to_send):
         # Тестовая ф-ия отправкиб корректно кодирует сообщение
         # так-же сохраняет то, что должно быть отправлено в сокет.
@@ -27,11 +28,11 @@ class TestSocket:
         # сохраняем то что должно быть отправлено в сокет
         self.received_message = message_to_send
 
-
     def recv(self, max_len):
         # Получаем данные из сокета
         json_test_message = json.dumps(self.test_dict)
         return json_test_message
+
 
 class TestUtils(unittest.TestCase):
     # Тестовый класс выполняющий тестирование
@@ -47,7 +48,7 @@ class TestUtils(unittest.TestCase):
     test_dict_recv_ok = {RESPONSE: 200}
     test_dict_recv_err = {
         RESPONSE: 400,
-        ERROR: 'BAD Request'
+        ERROR: 'Bad Request'
     }
 
     def test_send_message(self):
@@ -61,6 +62,7 @@ class TestUtils(unittest.TestCase):
         # Проверка корректности кодирования словаря
         # Сравниваем результат кодирования
         self.assertEqual(test_socket.encoded_message, test_socket.received_message)
+        # Дополнительно проверим генерацию исключения
         self.assertRaises(TypeError, send_message, test_socket, 'wrong_dictionary')
 
     def test_get_message(self):
@@ -71,6 +73,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(get_message(test_sock_ok), self.test_dict_recv_ok)
         # тест корректной расшифровки ошибочного словаря
         self.assertEqual(get_message(test_sock_err), self.test_dict_recv_err)
+
 
 if __name__ == '__main__':
     unittest.main()

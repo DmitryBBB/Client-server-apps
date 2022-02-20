@@ -6,8 +6,8 @@ from socket import *
 
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from common.utils import get_message, send_message
-from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, RESPONDEFAULT_IP_ADRESSE, \
-    ERROR, MAX_CONNECTIONS, DEFAULT_PORT
+from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR, \
+    DEFAULT_PORT, MAX_CONNECTIONS
 
 
 # Обработка сообщений от клиентов(принимает словарь),
@@ -18,7 +18,7 @@ def process_client_message(message):
         return {RESPONSE: 200}
 
     return {
-        RESPONDEFAULT_IP_ADRESSE: 400,
+        RESPONSE: 400,
         ERROR: 'Bad Request'
     }
 
