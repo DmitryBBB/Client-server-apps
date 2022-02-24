@@ -1,6 +1,8 @@
 """Константы"""
 
 # Порт по умолчанию для сетевого взаимодействия
+import logging
+
 DEFAULT_PORT = 7777
 # IP адрес по умолчанию для подкл. клиента
 DEFAULT_IP_ADDRESS = '127.0.0.1'
@@ -10,6 +12,9 @@ MAX_CONNECTIONS = 5
 MAX_PACKAGE_LENGTH = 1024
 # Кодировка проекта
 ENCODING = 'utf-8'
+
+# Текущий уровень логирования
+LOGGING_LEVEL = logging.DEBUG
 
 # Основные ключи протокола JIM:
 
