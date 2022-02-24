@@ -9,8 +9,8 @@ import time
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from errors import ReqFieldMissingError
 from common.utils import get_message, send_message
-from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR, DEFAULT_IP_ADDRESS, \
-    DEFAULT_PORT
+from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR, DEFAULT_PORT, \
+    DEFAULT_IP_ADDRESS
 
 CLIENT_LOGGER = logging.getLogger('client')
 
@@ -41,8 +41,8 @@ def process_ans(message):
 
 def create_arg_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('addr', default=DEFAULT_PORT, type=int, nargs='?')
-    parser.add_argument('port', default='', nargs='?')
+    parser.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')
+    parser.add_argument('port', default=DEFAULT_PORT, type=int, nargs='?')
     return parser
 
 
@@ -55,12 +55,10 @@ def main():
 
     if not 1024 < server_port < 65535:
         CLIENT_LOGGER.critical(f'Попытка запуска клиента с неподходящим номером порта: {server_port}'
-                  f'Допустимы адреса от 1024 до 65535. Клиент завершается')
+                               f'Допустимы адреса от 1024 до 65535. Клиент завершается')
         sys.exit(1)
     CLIENT_LOGGER.info(f'Запущен клиент с параметрами '
                        f'адрес сервера: {server_address}, порт: {server_port}')
-
-
 
     # инициализация сокета и обмен
     try:
@@ -75,12 +73,11 @@ def main():
         CLIENT_LOGGER.error('Не удалось декодировать полученную Json строку')
     except ConnectionRefusedError:
         CLIENT_LOGGER.critical(f'Не удалось подключится к серверу {server_address} : {server_port}'
-                               f'конечный компльютер отверг запрос на подключение')
+                               f' конечный компльютер отверг запрос на подключение')
     except ReqFieldMissingError as missing_error:
         CLIENT_LOGGER.error(f'В ответе сервера отсутствует необходимое поле'
                             f' {missing_error.missing_field}')
 
+
 if __name__ == '__main__':
     main()
-
-
