@@ -6,6 +6,8 @@ import socket
 import sys
 import time
 
+from decorator import log
+
 sys.path.append(os.path.join(os.getcwd(), '..'))
 from errors import ReqFieldMissingError
 from common.utils import get_message, send_message
@@ -15,6 +17,7 @@ from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONS
 CLIENT_LOGGER = logging.getLogger('client')
 
 
+@log
 def create_presence(account_name='Guest'):
     # Функция создает запрос о присутствие клиента
 
@@ -28,7 +31,7 @@ def create_presence(account_name='Guest'):
     CLIENT_LOGGER.debug(f'Сформировано {PRESENCE} сообщения для пользователя {account_name}')
     return out
 
-
+@log
 def process_ans(message):
     # Функция разбирает ответ сервера
     CLIENT_LOGGER.debug(f'Разбор сообщения от сервера: {message}')
@@ -38,7 +41,7 @@ def process_ans(message):
         return f'400 : {message[ERROR]}'
     raise ReqFieldMissingError(RESPONSE)
 
-
+@log
 def create_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')

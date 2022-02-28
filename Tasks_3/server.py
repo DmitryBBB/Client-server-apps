@@ -6,6 +6,7 @@ import socket
 import sys
 from socket import *
 
+from decorator import log
 from errors import IncorrectDataRecivedError
 
 sys.path.append(os.path.join(os.getcwd(), '..'))
@@ -19,6 +20,7 @@ SERVER_LOGGER = logging.getLogger('server')
 
 # Обработка сообщений от клиентов(принимает словарь),
 # проверяет корректность, возвращает словарь ответ для клиента
+@log
 def process_client_message(message):
     if ACTION in message and message[ACTION] == PRESENCE and \
             TIME in message and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
@@ -29,7 +31,7 @@ def process_client_message(message):
         ERROR: 'Bad Request'
     }
 
-
+@log
 def create_arg_parser():
     # Парсер аргументов командной строки
     parser = argparse.ArgumentParser()
