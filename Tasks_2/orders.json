@@ -1,0 +1,11 @@
+{
+    "orders": [
+        {
+            "item": "Лада",
+            "quantity": 20,
+            "price": 1200000,
+            "buyer": "Vasily",
+            "date": "09.02.2022"
+        }
+    ]
+}
