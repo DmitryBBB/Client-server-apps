@@ -8,7 +8,7 @@ import sys
 import traceback
 
 
-if sys.argv[0].find('client.py') == -1:
+if sys.argv[0].find('client1.py') == -1:
     # Если не клиент то сервер
     LOGGER = logging.getLogger('server')
 else:

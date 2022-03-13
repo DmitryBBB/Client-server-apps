@@ -1,4 +1,4 @@
-"""Программа-клиент"""
+# Программа-клиент
 
 import argparse
 import json
@@ -11,7 +11,6 @@ from common.utils import get_message, send_message
 from common.veriables import ACTION, SENDER, MESSAGE_TEXT, MESSAGE, TIME, ACCOUNT_NAME, PRESENCE, USER, RESPONSE, ERROR, \
     DEFAULT_IP_ADDRESS, DEFAULT_PORT
 from decorator import log
-
 from errors import ReqFieldMissingError, ServerError
 
 # Инициализация клиентского логера
@@ -169,3 +168,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    message_from_server()

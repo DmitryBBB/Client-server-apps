@@ -11,7 +11,7 @@ while True:
 
     elif USER == 's':
         for i in range(10):
-            P_LIST.append(Popen('python client.py', creationflags=CREATE_NEW_CONSOLE))
+            P_LIST.append(Popen('python client1.py', creationflags=CREATE_NEW_CONSOLE))
 
         print('Запущено 10 клиентов')
     elif USER == 'x':

@@ -10,7 +10,7 @@ while True:
     if ACTION == 'q':
         break
     elif ACTION == 's':
-        PROCESS.append(subprocess.Popen('python server.py',
+        PROCESS.append(subprocess.Popen('python server1.py',
                                         creationflags=subprocess.CREATE_NEW_CONSOLE))
         for i in range(2):
             PROCESS.append(subprocess.Popen('python client_send.py -m send',
