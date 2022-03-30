@@ -9,10 +9,8 @@ import subprocess
 import threading
 import time
 from ipaddress import ip_address
-from pprint import pprint
 
 # словарь с результатами
-from tabulate import tabulate
 
 result = {'Доступные узлы': "", "Недоступные узлы": ""}
 
@@ -29,9 +27,6 @@ def check_is_ipaddress(value):
     return ipv4
 
 
-
-
-
 def ping(ipv4, result, get_list):
     param = '-n' if platform.system().lower() == 'windows' else '-c'
     response = subprocess.Popen(['ping', param, '1', '-w', '1', str(ipv4)], stdout=subprocess.PIPE)
@@ -45,9 +40,10 @@ def ping(ipv4, result, get_list):
         result['Недоступные узлы'] += f'{ipv4}\n'
         res_string = f'{ipv4} - Узел недоступен'
         if not get_list:
-        # Если результат не нужно добавлять в словарь выводим на экран
+            # Если результат не нужно добавлять в словарь выводим на экран
             print(res_string)
         return res_string
+
 
 def host_ping(hosts_list, get_list=False):
     # Функция проверки доступности хостов
@@ -68,8 +64,9 @@ def host_ping(hosts_list, get_list=False):
     for thread in threads:
         thread.join()
     if get_list:
-    # Если нужно вернуть словарь, возвращаем(задача 3)
+        # Если нужно вернуть словарь, возвращаем(задача 3)
         return result
+
 
 if __name__ == '__main__':
     # список проверяемых хостов
