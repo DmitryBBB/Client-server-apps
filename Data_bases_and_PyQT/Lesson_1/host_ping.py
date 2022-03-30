@@ -11,6 +11,7 @@ import time
 from ipaddress import ip_address
 
 # словарь с результатами
+from pprint import pprint
 
 result = {'Доступные узлы': "", "Недоступные узлы": ""}
 
@@ -77,4 +78,4 @@ if __name__ == '__main__':
     host_ping(hosts_list)
     end = time.time()
     print(f'total time: {int(end - start)}')
-    # pprint(result)
+    pprint(result)
