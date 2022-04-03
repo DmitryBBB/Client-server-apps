@@ -4,19 +4,18 @@ import socket
 import threading
 import time
 
-
-from decorator import log
-
 from common.utils import *
 from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, MESSAGE, MESSAGE_TEXT, SENDER, DESTINATION, \
     EXIT, RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
+from decorator import log
 from errors import IncorrectDataRecivedError, ReqFieldMissingError, ServerError
+from metaclasses import ClientMaker
 
 logger = logging.getLogger('client_dist')
 
 
 # Клас формировки и отправки сообщений и взаимодействия с пользователес
-class ClientSender(threading.Thread):
+class ClientSender(threading.Thread, metaclass=ClientMaker):
     def __init__(self, account_name, sock):
         self.account_name = account_name
         self.sock = sock
@@ -79,7 +78,7 @@ class ClientSender(threading.Thread):
 
 
 # Класс-приемник сообщений с сервера. Принимает сообщения, выводит в консоль
-class ClientReader(threading.Thread):
+class ClientReader(threading.Thread, metaclass=ClientMaker):
     def __init__(self, account_name, sock):
         self.account_name = account_name
         self.sock = sock
