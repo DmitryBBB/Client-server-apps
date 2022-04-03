@@ -3,8 +3,8 @@ import logging
 import select
 import socket
 
-from Data_bases_and_PyQT.descriptrs import Port
-from Data_bases_and_PyQT.metaclasses import ServerMaker
+from descriptrs import Port
+from metaclasses import ServerMaker
 from common.utils import *
 from common.veriables import DEFAULT_PORT, DESTINATION, SENDER, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE_200, RESPONSE_400, ERROR, MESSAGE, MESSAGE_TEXT, EXIT
