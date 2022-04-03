@@ -1,17 +1,16 @@
 import argparse
-import json
 import logging
-# Инициализация клиентского логера
 import socket
-import sys
 import threading
 import time
 
-from common.utils import send_message, get_message
-from common.veriables import ACTION, EXIT, TIME, ACCOUNT_NAME, MESSAGE, SENDER, DESTINATION, MESSAGE_TEXT, PRESENCE, \
-    USER, RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
+
 from decorator import log
-from errors import IncorrectDataRecivedError, ServerError, ReqFieldMissingError
+
+from common.utils import *
+from common.veriables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, MESSAGE, MESSAGE_TEXT, SENDER, DESTINATION, \
+    EXIT, RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
+from errors import IncorrectDataRecivedError, ReqFieldMissingError, ServerError
 
 logger = logging.getLogger('client_dist')
 
@@ -34,7 +33,7 @@ class ClientSender(threading.Thread):
     # функция запрашивает кому отправить сообщение и само сообщение
     def create_message(self):
         to = input('Введите получателя сообщения: ')
-        message = input('Введите сообщения: ')
+        message = input('Введите сообщение для отправки: ')
         message_dict = {
             ACTION: MESSAGE,
             SENDER: self.account_name,
@@ -48,7 +47,7 @@ class ClientSender(threading.Thread):
             logger.info(f'Отправлено сообщения для пользователя: {to}')
         except:
             logger.critical(f'Потеря соединение с сервером!')
-        exit(1)
+            exit(1)
 
     # функция взаимодействия с пользователемб запрашивает команды, отправляет сообщения
     def run(self):
@@ -91,9 +90,8 @@ class ClientReader(threading.Thread):
         while True:
             try:
                 message = get_message(self.sock)
-                if ACTION in message and message[ACTION] == MESSAGE and \
-                        SENDER in message and DESTINATION in message and \
-                        MESSAGE_TEXT in message and message[DESTINATION] == self.account_name:
+                if ACTION in message and message[ACTION] == MESSAGE and SENDER in message and DESTINATION in message \
+                        and MESSAGE_TEXT in message and message[DESTINATION] == self.account_name:
                     print(f'\nПолучено сообщение от пользователя {message[SENDER]}:\n{message[MESSAGE_TEXT]}')
                     logger.info(f'Получено сообщение от пользователя {message[SENDER]}:\n {message[MESSAGE_TEXT]}')
                 else:
@@ -102,12 +100,10 @@ class ClientReader(threading.Thread):
                 logger.error('Не удалось декодировать полученное сообщение')
             except (OSError, ConnectionError, ConnectionAbortedError, ConnectionResetError, json.JSONDecodeError):
                 logger.critical('Потеряно соединение с сервером!')
+                break
 
 
-
-    # Функция генерирует запрос о присутствии клиента
-
-
+# Функция генерирует запрос о присутствии клиента
 @log
 def create_presence(account_name):
     out = {
@@ -129,7 +125,7 @@ def process_response_ans(message):
         if message[RESPONSE] == 200:
             return '200 : OK'
         elif message[RESPONSE] == 400:
-            raise ServerError(f'400: {message[ERROR]}')
+            raise ServerError(f'400 : {message[ERROR]}')
     raise ReqFieldMissingError(RESPONSE)
 
 
@@ -149,7 +145,7 @@ def arg_parser():
         logger.critical(
             f'Попытка запуска клиента с неподходящим номером порта: {server_port}'
         )
-    exit(1)
+        exit(1)
     return server_address, server_port, client_name
 
 
@@ -167,7 +163,7 @@ def main():
         print(f'Клиентский модуль запущен с именем {client_name}')
 
     logger.info(f'запущен клиент с параметрами: адрес сервера {server_address}, '
-              f'порт: {server_port}, имя пользователя: {client_name}')
+                f'порт: {server_port}, имя пользователя: {client_name}')
 
     # инициализация сокета и сообщение серверу о нашем появлении
     try:
@@ -176,7 +172,7 @@ def main():
         send_message(transport, create_presence(client_name))
         answer = process_response_ans(get_message(transport))
         logger.info(f'Установлено соединение с сервером. Ответ сервера: {answer}')
-        print('Установлено соединение с сервером')
+        print(f'Установлено соединение с сервером.')
 
     except json.JSONDecodeError:
         logger.error('Не удалось декодировать полученную Json строку')
@@ -209,9 +205,10 @@ def main():
         # ввёл exit. Поскольку все события обработываются в потоках, достаточно просто завершить цикл.
         while True:
             time.sleep(1)
-            if module_sender.is_alive() and module_reciver.is_alive():
+            if module_reciver.is_alive() and module_sender.is_alive():
                 continue
             break
+
 
 if __name__ == '__main__':
     main()
