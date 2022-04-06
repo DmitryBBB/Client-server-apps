@@ -3,7 +3,7 @@ import logging
 import select
 import socket
 
-from Data_bases_and_PyQT.server_db_decl import ServerDB
+from server_db_decl import ServerDB
 from common.utils import *
 from common.veriables import DEFAULT_PORT, DESTINATION, SENDER, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE_200, RESPONSE_400, ERROR, MESSAGE, MESSAGE_TEXT, EXIT
