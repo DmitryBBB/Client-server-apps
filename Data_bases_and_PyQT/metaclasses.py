@@ -35,7 +35,7 @@ class ServerMaker(type):
             else:
                 # раз функция разбираем код получая используемы методы и атрибуты
                 for i in ret:
-                    print(i)
+                    # print(i)
                     # i - Instruction
                     # argrepr = 'send_message'
                     # opname - имя для операции
@@ -53,12 +53,12 @@ class ServerMaker(type):
                             # заполняем список атрибутами, использующимися в функциях класса
                             attrs.append(i.argval)
 
-        print('methods', '_' * 20)
-        pprint(methods)
-        print('methods_2', '_' * 20)
-        pprint(methods_2)
-        print('attrs', '_' * 20)
-        pprint(attrs)
+        # print('methods', '_' * 20)
+        # pprint(methods)
+        # print('methods_2', '_' * 20)
+        # pprint(methods_2)
+        # print('attrs', '_' * 20)
+        # pprint(attrs)
 
         # если обнаружено использование недопустимого метода connect, вызываем исключение
         if 'connect' in methods:
