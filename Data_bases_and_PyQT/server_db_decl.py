@@ -20,6 +20,7 @@ class ServerDB:
 
         # инициализация полей
         def __init__(self, login):
+            self.id = None
             self.login = login
             self.last_conn = datetime.datetime.now()
 
@@ -37,6 +38,7 @@ class ServerDB:
             self.ip = ip
             self.port = port
             self.time_conn = time_conn
+            self.id = None
 
     # Отображение Таблицы - История входа
     class LoginHistory(Base):
@@ -52,6 +54,7 @@ class ServerDB:
             self.ip = ip
             self.port = port
             self.last_conn = last_conn
+            self.id = None
 
     # Таблица контактов пользователей
     class UserContacts(Base):
@@ -79,14 +82,15 @@ class ServerDB:
             self.sent = 0
             self.accepted = 0
 
-    def __init__(self):
+    def __init__(self, path):
         # Создаём движок базы данных
         # SERVER_DATABASE - sqlite:///server_base.db3
         # echo=False - отключает вывод на экран sql-запросов)
         # pool_recycle - по умолчанию соединение с БД через 8 часов простоя обрывается
         # Чтобы этого не случилось необходимо добавить pool_recycle=7200 (переустановка
         #    соединения через каждые 2 часа)
-        self.database_engine = create_engine('sqlite:///server_base.db3', echo=False, pool_recycle=7200)
+        self.database_engine = create_engine(f'sqlite:///{path}', echo=False, pool_recycle=7200,
+                                             connect_args={'check_same_thread': False})
 
         # СОЗДАЕМ ТАБЛИЦЫ
         self.Base.metadata.create_all(self.database_engine)
