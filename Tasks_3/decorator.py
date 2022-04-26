@@ -1,32 +1,20 @@
-# Декоратор
-
-# Метод определения модуля(источника запуска)
-# .find возвращает индекс первого вхождения запрашиваемой строки
-import inspect
 import logging
 import sys
-import traceback
 
-
-if sys.argv[0].find('client3.py') == -1:
-    # Если не клиент то сервер
-    LOGGER = logging.getLogger('server')
+# метод определения модуля, источника запуска.
+if sys.argv[0].find('client_dist') == -1:
+    # если не клиент то сервер!
+    logger = logging.getLogger('server_dist')
 else:
-    # Не сервер значит клиент
-    LOGGER = logging.getLogger('client')
+    # ну, раз не сервер, то клиент
+    logger = logging.getLogger('client_dist')
 
 
-# Декоратор (В декораторе @log реализована фиксация
-# функции, из которой была вызвана декорированная)
-
-def log(func_log):
+def log(func_to_log):
     def log_saver(*args, **kwargs):
-        ret = func_log(*args, **kwargs)
-        LOGGER.debug(f'Была вызвана функция {func_log.__name__} с параметрами {args}, {kwargs} '
-                     f'Вызов из модуля {func_log.__module__} '
-                     f'Вызов из ф-ции {traceback.format_stack()[0].strip().split()[-1]} '
-                     f'Файл запуска: {inspect.getframeinfo(inspect.stack()[1][0])}')
-        # caller = getframeinfo(stack()[1][0])
-
+        logger.debug(
+            f'Была вызвана функция {func_to_log.__name__} c параметрами {args} , {kwargs}. Вызов из модуля {func_to_log.__module__}')
+        ret = func_to_log(*args, **kwargs)
         return ret
+
     return log_saver
