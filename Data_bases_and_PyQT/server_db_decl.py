@@ -45,7 +45,7 @@ class ServerDB:
     class LoginHistory(Base):
         __tablename__ = 'Login_history'
         id = Column(Integer, primary_key=True)
-        name = Column(String, ForeignKey('Users.id'), unique=True)
+        name = Column(String, ForeignKey('Users.id'))
         ip = Column(String)
         port = Column(Integer)
         date_time = Column(DateTime)
@@ -248,20 +248,20 @@ class ServerDB:
 
 
 
-if __name__ == '__main__':
-    test_db = ServerDB('server_base.db3')
-    test_db.user_login('1111', '192.168.1.113', 8080)
-    test_db.user_login('McG2', '192.168.1.113', 8081)
-    print(test_db.users_list())
-    # print(test_db.active_users_list())
-    # test_db.user_logout('McG')
-    # print(test_db.login_history('re'))
-    # test_db.add_contact('test2', 'test1')
-    # test_db.add_contact('test1', 'test3')
-    # test_db.add_contact('test1', 'test6')
-    # test_db.remove_contact('test1', 'test3')
-    test_db.process_message('McG2', '1111')
-    print(test_db.message_history())
+# if __name__ == '__main__':
+#     test_db = ServerDB('server_base.db3')
+#     test_db.user_login('1111', '192.168.1.113', 8080)
+#     test_db.user_login('McG2', '192.168.1.113', 8081)
+#     print(test_db.users_list())
+#     # print(test_db.active_users_list())
+#     # test_db.user_logout('McG')
+#     # print(test_db.login_history('re'))
+#     # test_db.add_contact('test2', 'test1')
+#     # test_db.add_contact('test1', 'test3')
+#     # test_db.add_contact('test1', 'test6')
+#     # test_db.remove_contact('test1', 'test3')
+#     test_db.process_message('McG2', '1111')
+#     print(test_db.message_history())
 
 # if __name__ == '__main__':
 #     db = ServerDB()

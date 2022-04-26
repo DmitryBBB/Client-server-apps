@@ -4,14 +4,15 @@ import argparse
 import sys
 from PyQt5.QtWidgets import QApplication
 
+from Data_bases_and_PyQT.client.client_db_decl import ClientDatabase
+from Data_bases_and_PyQT.client.main_window import ClientMainWindow
+from Data_bases_and_PyQT.client.start_dialog import UserNameDialog
+from Data_bases_and_PyQT.client.transport import ClientTransport
 from common.veriables import *
 from common.errors import ServerError
 from decorator import log
-sys.path.append('client')
-from client_db_decl import ClientDatabase
-from transport import ClientTransport
-from main_window import ClientMainWindow
-from start_dialog import UserNameDialog
+
+
 
 # Инициализация клиентского логера
 logger = logging.getLogger('client_dist')

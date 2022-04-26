@@ -38,17 +38,17 @@ class DelContactDialog(QDialog):
         self.btn_cancel.clicked.connect(self.close)
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    from client_db_decl import ClientDatabase
-
-    database = ClientDatabase('test1')
-    window = DelContactDialog(database)
-    # при подключении контакты удаляются, а затем добавляются с сервера
-    # поэтому для проверки сами вручную добавляем контакт для списка удаления
-    database.add_contact('test1')
-    database.add_contact('test2')
-    print(database.get_contacts())
-    window.selector.addItems(sorted(database.get_contacts()))
-    window.show()
-    app.exec_()
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     from client_db_decl import ClientDatabase
+#
+#     database = ClientDatabase('test1')
+#     window = DelContactDialog(database)
+#     # при подключении контакты удаляются, а затем добавляются с сервера
+#     # поэтому для проверки сами вручную добавляем контакт для списка удаления
+#     database.add_contact('test1')
+#     database.add_contact('test2')
+#     print(database.get_contacts())
+#     window.selector.addItems(sorted(database.get_contacts()))
+#     window.show()
+#     app.exec_()

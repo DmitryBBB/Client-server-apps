@@ -1,26 +1,15 @@
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QApplication, QListView
+from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QApplication
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
-from PyQt5.QtCore import pyqtSlot, QEvent, Qt
+from PyQt5.QtCore import pyqtSlot, Qt
 import sys
-import json
 import logging
-
-
-
-
-
-from client_db_decl import ClientDatabase
 from errors import ServerError
-from transport import ClientTransport
-from start_dialog import UserNameDialog
-
-
 from Data_bases_and_PyQT.client.add_contact import AddContactDialog
 from Data_bases_and_PyQT.client.del_contact import DelContactDialog
 from Data_bases_and_PyQT.client.main_window_conv import Ui_MainClientWindow
+sys.path.append('/..')
 
 logger = logging.getLogger('client_dist')
-
 
 # Класс основного окна
 class ClientMainWindow(QMainWindow):
@@ -270,6 +259,6 @@ if __name__ == '__main__':
     from client_db_decl import ClientDatabase
     database = ClientDatabase('test1')
     from transport import ClientTransport
-    transport = ClientTransport(32322, '127.0.0.1', database, 'test1')
+    transport = ClientTransport(7777, '127.0.0.1', database, 'test1')
     window = ClientMainWindow(database, transport)
     sys.exit(app.exec_())
