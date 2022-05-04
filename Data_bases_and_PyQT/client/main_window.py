@@ -1,17 +1,17 @@
 import logging
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
-from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, qApp, QMessageBox, QApplication, QListView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSlot, QEvent, Qt
 import json
 import base64
 from Data_bases_and_PyQT.client.add_contact import AddContactDialog
 from Data_bases_and_PyQT.client.del_contact import DelContactDialog
 from Data_bases_and_PyQT.client.main_window_conv import Ui_MainClientWindow
 from Data_bases_and_PyQT.common.errors import ServerError
-from Data_bases_and_PyQT.common.veriables import MESSAGE_TEXT, SENDER
-from common.veriables import *
+from Data_bases_and_PyQT.common.veriables import *
+
 
 
 logger = logging.getLogger('client_dist')
