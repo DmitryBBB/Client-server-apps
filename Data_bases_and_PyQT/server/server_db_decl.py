@@ -180,6 +180,18 @@ class ServerDB:
         # Сохраняем изменения
         self.session.commit()
 
+    def add_user(self, name, passwd_hash):
+        """
+        Метод регистрации пользователя.
+        Принимает имя и хэш пароля, создаёт запись в таблице статистики.
+        """
+        user_row = self.AllUsers(name, passwd_hash)
+        self.session.add(user_row)
+        self.session.commit()
+        history_row = self.UsersHistory(user_row.id)
+        self.session.add(history_row)
+        self.session.commit()
+
     def process_message(self, sender, recipient):
         """Метод записывающий в таблицу статистики факт передачи сообщения."""
         # Получаем ID отправителя и получателя
