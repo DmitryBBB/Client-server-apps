@@ -135,7 +135,7 @@ class ServerDB:
         self.session.add(new_active_user)
 
         # и сохранить в историю входов
-        history = self.LoginHistory(user.id, datetime.datetime.now(), ip_address, port)
+        history = self.LoginHistory(user.id, ip_address, port, datetime.datetime.now())
         self.session.add(history)
 
         # Сохраняем изменения
