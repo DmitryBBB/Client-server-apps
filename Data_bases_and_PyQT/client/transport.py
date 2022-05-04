@@ -8,12 +8,12 @@ import time
 
 from PyQt5.QtCore import pyqtSignal, QObject
 
-from Data_bases_and_PyQT.common.errors import ServerError
-from Data_bases_and_PyQT.common.veriables import PUBLIC_KEY, DATA, RESPONSE_511, PUBLIC_KEY_REQUEST
+
 
 sys.path.append('..')
 from common.utils import *
 from common.veriables import *
+from common.errors import *
 
 
 # Логер и объект блокировки для работы с сокетом.
