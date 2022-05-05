@@ -1,24 +1,24 @@
-
+import logging
+import logs.config_client_log
 import argparse
-import os.path
 import sys
-
-from Crypto.PublicKey import RSA
+import os
+from Cryptodome.PublicKey import RSA
 from PyQt5.QtWidgets import QApplication, QMessageBox
 
+from Data_bases_and_PyQT.common.veriables import *
+from Data_bases_and_PyQT.common.errors import ServerError
+from Data_bases_and_PyQT.common.decorator import log
 from Data_bases_and_PyQT.client.client_db_decl import ClientDatabase
-from Data_bases_and_PyQT.client.main_window import ClientMainWindow
-from Data_bases_and_PyQT.client.start_dialog import UserNameDialog
 from Data_bases_and_PyQT.client.transport import ClientTransport
-from common.errors import ServerError
-from common.veriables import *
-from decorator import log
+from client.main_window import ClientMainWindow
+from client.start_dialog import UserNameDialog
 
 # Инициализация клиентского логера
 logger = logging.getLogger('client_dist')
 
 
-
+# Парсер аргументов коммандной строки
 @log
 def arg_parser():
     """
@@ -51,7 +51,7 @@ def arg_parser():
 if __name__ == '__main__':
     # Загружаем параметы коммандной строки
     server_address, server_port, client_name, client_passwd = arg_parser()
-    logger.debug('Аргументы загружены!')
+    logger.debug('Args loaded')
 
     # Создаём клиентокое приложение
     client_app = QApplication(sys.argv)
@@ -60,21 +60,21 @@ if __name__ == '__main__':
     start_dialog = UserNameDialog()
     if not client_name or not client_passwd:
         client_app.exec_()
-        # Если пользователь ввёл имя и нажал ОК, то сохраняем ведённое и удаляем объект.
-        # Иначе - выходим
+        # Если пользователь ввёл имя и нажал ОК, то сохраняем ведённое и
+        # удаляем объект, инааче выходим
         if start_dialog.ok_pressed:
             client_name = start_dialog.client_name.text()
             client_passwd = start_dialog.client_passwd.text()
-            logger.debug(f'Использование Username = {client_name}, Passwd = {client_passwd}')
+            logger.debug(f'Using USERNAME = {client_name}, PASSWD = {client_passwd}.')
         else:
             exit(0)
 
     # Записываем логи
     logger.info(
-        f'Запущен клиент с парамертами: адрес сервера: {server_address} , '
-        f'порт: {server_port}, имя пользователя: {client_name}')
+        f'Запущен клиент с параметрами: адрес сервера: {server_address} , порт: {server_port},'
+        f' имя пользователя: {client_name}')
 
-    # Загружаем ключи с файла, если файла нет, то генерируем новую пару.
+    # Загружаем ключи с файла, если же файла нет, то генерируем новую пару.
     dir_path = os.path.dirname(os.path.realpath(__file__))
     key_file = os.path.join(dir_path, f'{client_name}.key')
     if not os.path.exists(key_file):
@@ -85,7 +85,8 @@ if __name__ == '__main__':
         with open(key_file, 'rb') as key:
             keys = RSA.import_key(key.read())
 
-    logger.debug("Ключи успешно загружены!")
+    # !!!keys.publickey().export_key()
+    logger.debug("Keys successfully loaded.")
     # Создаём объект базы данных
     database = ClientDatabase(client_name)
     # Создаём объект - транспорт и запускаем транспортный поток
@@ -97,7 +98,7 @@ if __name__ == '__main__':
             client_name,
             client_passwd,
             keys)
-        logger.debug("Транспорт готов!")
+        logger.debug("Transport ready.")
     except ServerError as error:
         message = QMessageBox()
         message.critical(start_dialog, 'Ошибка сервера', error.text)
@@ -117,4 +118,3 @@ if __name__ == '__main__':
     # Раз графическая оболочка закрылась, закрываем транспорт
     transport.transport_shutdown()
     transport.join()
-

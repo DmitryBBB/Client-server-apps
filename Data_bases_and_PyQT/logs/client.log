@@ -1,0 +1,67 @@
+2022-05-05 20:16:55,128 DEBUG client3.py Args loaded
+2022-05-05 20:17:07,396 DEBUG client3.py Using USERNAME = nana, PASSWD = 123456.
+2022-05-05 20:17:07,396 INFO client3.py Запущен клиент с параметрами: адрес сервера: 127.0.0.1 , порт: 7777, имя пользователя: nana
+2022-05-05 20:17:08,093 DEBUG client3.py Keys successfully loaded.
+2022-05-05 20:17:08,403 INFO transport.py Попытка подключения №1
+2022-05-05 20:17:08,404 DEBUG transport.py Соединение установлено
+2022-05-05 20:17:08,404 DEBUG transport.py Запуск диалогового окна авторизации
+2022-05-05 20:17:08,412 DEBUG transport.py Хэш пароля готов: b'11c8c511b40f4d15058d9400f55caa892e7af769d71926b0b36314d80f4bc2f515ec24e34840951f5e3c24d06554415ad7a35f69bb32b1e1682fe7afb480925d'
+2022-05-05 20:17:08,412 DEBUG transport.py Сообщение о присутствии = {'action': 'presence', 'time': 1651771028.412495, 'user': {'account_name': 'nana', 'pubkey': '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4SOgKnSd1K2QL/6pI3+\nbF/tyI2+GGWmRP18igcSxEF57RATYoC2CNqoqrNiX3S8NDxnWvl2E8+eztX5Zu/Y\nOgapAFgQZ0GJ21ThfXuDHvPna4QJpHcKk/5gHeiTMbp3LOyPzldyrp+Dn6HkoQRr\nLSbGJg5CVqZ2aXdlYMoaqngFwwr+CpGRXS/0iG3qKa7bBXRzfi1/Pjv7xBllk/1l\n0BKgj3tYgVboVYGH1G9LlS7sTyClhIECJOa620+Mq1OPui/MBnC5+5V445mBXlEY\nXztfr/SZFrps4pg9NXjsmlF6hZp7vibFJjqBDr3NY6jVJkfRPSXZ4GtG11dbw0/g\nHQIDAQAB\n-----END PUBLIC KEY-----'}}
+2022-05-05 20:17:08,908 DEBUG transport.py Ответ сервера = {'response': 511, 'bin': '9d2aa7dd4b8dda8e040b9cff4daf2055f41f8b9e3b87837892931ceb7b4bf319c04bab4d97d346acdf6e9e914a3421ff5c9826743f165df2d99b18cf854761ea'}.
+2022-05-05 20:17:08,908 DEBUG transport.py Разбор сообщения от сервера: {'response': 200}
+2022-05-05 20:17:08,908 DEBUG transport.py Запрос списка известных пользователей nana
+2022-05-05 20:17:09,645 DEBUG transport.py Запрос контакт листа для пользователя Thread-1
+2022-05-05 20:17:09,645 DEBUG transport.py Сформирован запрос {'action': 'get_contacts', 'time': 1651771029.6458144, 'user': 'nana'}
+2022-05-05 20:17:09,987 DEBUG transport.py Получен ответ {'response': 202, 'data_list': []}
+2022-05-05 20:17:09,987 DEBUG client3.py Transport ready.
+2022-05-05 20:17:09,987 DEBUG transport.py Запущен процесс - приёмник сообщений с сервера.
+2022-05-05 20:18:52,360 DEBUG client3.py Args loaded
+2022-05-05 20:19:02,459 DEBUG client3.py Using USERNAME = nana, PASSWD = 123456.
+2022-05-05 20:19:02,459 INFO client3.py Запущен клиент с параметрами: адрес сервера: 127.0.0.1 , порт: 7777, имя пользователя: nana
+2022-05-05 20:19:02,526 DEBUG client3.py Keys successfully loaded.
+2022-05-05 20:19:02,651 INFO transport.py Попытка подключения №1
+2022-05-05 20:19:02,652 DEBUG transport.py Соединение установлено
+2022-05-05 20:19:02,652 DEBUG transport.py Запуск диалогового окна авторизации
+2022-05-05 20:19:02,660 DEBUG transport.py Хэш пароля готов: b'11c8c511b40f4d15058d9400f55caa892e7af769d71926b0b36314d80f4bc2f515ec24e34840951f5e3c24d06554415ad7a35f69bb32b1e1682fe7afb480925d'
+2022-05-05 20:19:02,660 DEBUG transport.py Сообщение о присутствии = {'action': 'presence', 'time': 1651771142.660563, 'user': {'account_name': 'nana', 'pubkey': '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4SOgKnSd1K2QL/6pI3+\nbF/tyI2+GGWmRP18igcSxEF57RATYoC2CNqoqrNiX3S8NDxnWvl2E8+eztX5Zu/Y\nOgapAFgQZ0GJ21ThfXuDHvPna4QJpHcKk/5gHeiTMbp3LOyPzldyrp+Dn6HkoQRr\nLSbGJg5CVqZ2aXdlYMoaqngFwwr+CpGRXS/0iG3qKa7bBXRzfi1/Pjv7xBllk/1l\n0BKgj3tYgVboVYGH1G9LlS7sTyClhIECJOa620+Mq1OPui/MBnC5+5V445mBXlEY\nXztfr/SZFrps4pg9NXjsmlF6hZp7vibFJjqBDr3NY6jVJkfRPSXZ4GtG11dbw0/g\nHQIDAQAB\n-----END PUBLIC KEY-----'}}
+2022-05-05 20:19:03,153 DEBUG transport.py Ответ сервера = {'response': 511, 'bin': 'b414cdcaa3925e3a3a51a34a4e8852b96718e2058640d55ba233447b8d39fffd6b7063e3fb1490decce79ade7a03aa89cb66e298b7551c1e0db53a676007630b'}.
+2022-05-05 20:19:03,154 DEBUG transport.py Разбор сообщения от сервера: {'response': 200}
+2022-05-05 20:19:03,154 DEBUG transport.py Запрос списка известных пользователей nana
+2022-05-05 20:19:03,893 DEBUG transport.py Запрос контакт листа для пользователя Thread-1
+2022-05-05 20:19:03,893 DEBUG transport.py Сформирован запрос {'action': 'get_contacts', 'time': 1651771143.8938825, 'user': 'nana'}
+2022-05-05 20:19:04,241 DEBUG transport.py Получен ответ {'response': 202, 'data_list': []}
+2022-05-05 20:19:04,241 DEBUG client3.py Transport ready.
+2022-05-05 20:19:04,241 DEBUG transport.py Запущен процесс - приёмник сообщений с сервера.
+2022-05-05 20:19:19,762 DEBUG client3.py Args loaded
+2022-05-05 20:19:27,883 DEBUG client3.py Using USERNAME = nana, PASSWD = 123456.
+2022-05-05 20:19:27,883 INFO client3.py Запущен клиент с параметрами: адрес сервера: 127.0.0.1 , порт: 7777, имя пользователя: nana
+2022-05-05 20:19:27,951 DEBUG client3.py Keys successfully loaded.
+2022-05-05 20:19:28,051 INFO transport.py Попытка подключения №1
+2022-05-05 20:19:28,051 DEBUG transport.py Соединение установлено
+2022-05-05 20:19:28,051 DEBUG transport.py Запуск диалогового окна авторизации
+2022-05-05 20:19:28,059 DEBUG transport.py Хэш пароля готов: b'11c8c511b40f4d15058d9400f55caa892e7af769d71926b0b36314d80f4bc2f515ec24e34840951f5e3c24d06554415ad7a35f69bb32b1e1682fe7afb480925d'
+2022-05-05 20:19:28,059 DEBUG transport.py Сообщение о присутствии = {'action': 'presence', 'time': 1651771168.0597403, 'user': {'account_name': 'nana', 'pubkey': '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4SOgKnSd1K2QL/6pI3+\nbF/tyI2+GGWmRP18igcSxEF57RATYoC2CNqoqrNiX3S8NDxnWvl2E8+eztX5Zu/Y\nOgapAFgQZ0GJ21ThfXuDHvPna4QJpHcKk/5gHeiTMbp3LOyPzldyrp+Dn6HkoQRr\nLSbGJg5CVqZ2aXdlYMoaqngFwwr+CpGRXS/0iG3qKa7bBXRzfi1/Pjv7xBllk/1l\n0BKgj3tYgVboVYGH1G9LlS7sTyClhIECJOa620+Mq1OPui/MBnC5+5V445mBXlEY\nXztfr/SZFrps4pg9NXjsmlF6hZp7vibFJjqBDr3NY6jVJkfRPSXZ4GtG11dbw0/g\nHQIDAQAB\n-----END PUBLIC KEY-----'}}
+2022-05-05 20:19:28,552 DEBUG transport.py Ответ сервера = {'response': 511, 'bin': '038e95dec9b040a9d9deb3114a0bc66fce275ff944c0fb8f43b00168925423a847a9be0ea818770d5e7ccd364e769b3695d2818f8ea2bda4c9baf4b9d2a3f010'}.
+2022-05-05 20:19:28,552 DEBUG transport.py Разбор сообщения от сервера: {'response': 200}
+2022-05-05 20:19:28,552 DEBUG transport.py Запрос списка известных пользователей nana
+2022-05-05 20:19:33,554 ERROR transport.py Timeout соединения при обновлении списков пользователей.
+2022-05-05 20:19:33,554 DEBUG client3.py Transport ready.
+2022-05-05 20:19:33,554 DEBUG transport.py Запущен процесс - приёмник сообщений с сервера.
+2022-05-05 20:24:00,641 DEBUG client3.py Args loaded
+2022-05-05 20:24:07,564 DEBUG client3.py Using USERNAME = nana, PASSWD = 123456.
+2022-05-05 20:24:07,564 INFO client3.py Запущен клиент с параметрами: адрес сервера: 127.0.0.1 , порт: 7777, имя пользователя: nana
+2022-05-05 20:24:07,621 DEBUG client3.py Keys successfully loaded.
+2022-05-05 20:24:07,713 INFO transport.py Попытка подключения №1
+2022-05-05 20:24:07,713 DEBUG transport.py Connection established.
+2022-05-05 20:24:07,713 DEBUG transport.py Starting auth dialog.
+2022-05-05 20:24:07,722 DEBUG transport.py Passwd hash ready: b'11c8c511b40f4d15058d9400f55caa892e7af769d71926b0b36314d80f4bc2f515ec24e34840951f5e3c24d06554415ad7a35f69bb32b1e1682fe7afb480925d'
+2022-05-05 20:24:07,723 DEBUG transport.py Presense message = {'action': 'presence', 'time': 1651771447.723413, 'user': {'account_name': 'nana', 'pubkey': '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4SOgKnSd1K2QL/6pI3+\nbF/tyI2+GGWmRP18igcSxEF57RATYoC2CNqoqrNiX3S8NDxnWvl2E8+eztX5Zu/Y\nOgapAFgQZ0GJ21ThfXuDHvPna4QJpHcKk/5gHeiTMbp3LOyPzldyrp+Dn6HkoQRr\nLSbGJg5CVqZ2aXdlYMoaqngFwwr+CpGRXS/0iG3qKa7bBXRzfi1/Pjv7xBllk/1l\n0BKgj3tYgVboVYGH1G9LlS7sTyClhIECJOa620+Mq1OPui/MBnC5+5V445mBXlEY\nXztfr/SZFrps4pg9NXjsmlF6hZp7vibFJjqBDr3NY6jVJkfRPSXZ4GtG11dbw0/g\nHQIDAQAB\n-----END PUBLIC KEY-----'}}
+2022-05-05 20:24:08,217 DEBUG transport.py Server response = {'response': 511, 'bin': 'c25a8d132822036801c2e7af0b3a22cdab314356f5da2791f5f3fe3e86f3c297af77a525096d847bfe884db47d07087270b3441ae64cd7b2ec6852c5ec716236'}.
+2022-05-05 20:24:08,217 DEBUG transport.py Разбор сообщения от сервера: {'response': 200}
+2022-05-05 20:24:08,218 DEBUG transport.py Запрос списка известных пользователей nana
+2022-05-05 20:24:09,087 DEBUG transport.py Запрос контакт листа для пользователся Thread-1
+2022-05-05 20:24:09,087 DEBUG transport.py Сформирован запрос {'action': 'get_contacts', 'time': 1651771449.0877655, 'user': 'nana'}
+2022-05-05 20:24:09,313 DEBUG transport.py Получен ответ {'response': 202, 'data_list': []}
+2022-05-05 20:24:09,313 DEBUG client3.py Transport ready.
+2022-05-05 20:24:09,313 DEBUG transport.py Запущен процесс - приёмник собщений с сервера.
+2022-05-05 20:24:18,340 DEBUG transport.py Транспорт завершает работу.

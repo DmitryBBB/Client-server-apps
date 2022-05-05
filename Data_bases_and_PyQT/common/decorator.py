@@ -1,12 +1,11 @@
-import logging
 import socket
+import logging
 import sys
+sys.path.append('../')
+
 
 
 # метод определения модуля, источника запуска.
-from Data_bases_and_PyQT.common.veriables import *
-from Data_bases_and_PyQT.server.core import MessageProcessor
-
 if sys.argv[0].find('client_dist') == -1:
     # если не клиент то сервер!
     logger = logging.getLogger('server_dist')
@@ -46,7 +45,8 @@ def login_required(func):
     def checker(*args, **kwargs):
         # проверяем, что первый аргумент - экземпляр MessageProcessor
         # Импортить необходимо тут, иначе ошибка рекурсивного импорта.
-
+        from Data_bases_and_PyQT.server.core import MessageProcessor
+        from Data_bases_and_PyQT.common.veriables import ACTION, PRESENCE
         if isinstance(args[0], MessageProcessor):
             found = False
             for arg in args:

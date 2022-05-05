@@ -1,7 +1,7 @@
 import json
 
-from common.veriables import *
-from decorator import log
+from Data_bases_and_PyQT.common.veriables import *
+from Data_bases_and_PyQT.common.decorator import log
 
 
 # Утилита приёма и декодирования сообщения

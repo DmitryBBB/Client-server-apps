@@ -1,25 +1,29 @@
-# Загрузка логгера
-import binascii
-import hmac
-import json
+import threading
 import logging
-import os
 import select
 import socket
+import json
+import hmac
+import binascii
+import os
 import sys
-import threading
-
-from Data_bases_and_PyQT.common.decorator import *
+sys.path.append('//..')
+from Data_bases_and_PyQT.metaclasses import ServerMaker
 from Data_bases_and_PyQT.common.descriptrs import Port
-from Data_bases_and_PyQT.common.utils import *
 from Data_bases_and_PyQT.common.veriables import *
+from Data_bases_and_PyQT.common.utils import send_message, get_message
+from Data_bases_and_PyQT.common.decorator import login_required
 
+# Загрузка логера
 logger = logging.getLogger('server_dist')
 
 
-# Основной класс сервера. Принимает сообщения , словари пакеты от клиентов,
-# обрабатывает поступающие сообщения. Работает в качестве отдельного потока
 class MessageProcessor(threading.Thread):
+    """
+    Основной класс сервера. Принимает содинения, словари - пакеты
+    от клиентов, обрабатывает поступающие сообщения.
+    Работает в качестве отдельного потока.
+    """
     port = Port()
 
     def __init__(self, listen_address, listen_port, database):
@@ -27,50 +31,49 @@ class MessageProcessor(threading.Thread):
         self.addr = listen_address
         self.port = listen_port
 
-        # База данных
+        # База данных сервера
         self.database = database
 
-        # сокет через который будет осуществляться работы
+        # Сокет, через который будет осуществляться работа
         self.sock = None
 
-        # Список подключенных клиентов
+        # Список подключённых клиентов.
         self.clients = []
 
-        # сокеты
+        # Сокеты
         self.listen_sockets = None
         self.error_sockets = None
 
-        # флаг продолжения работы
+        # Флаг продолжения работы
         self.running = True
 
-        # словарь содержащий сопоставленные имена и соответствующие им сокеты
+        # Словарь содержащий сопоставленные имена и соответствующие им сокеты.
         self.names = dict()
 
-        # конструктор предка
+        # Конструктор предка
         super().__init__()
 
     def run(self):
-        """Основной цикл потока"""
-        # Инициализация сокета
+        '''Метод основной цикл потока.'''
+        # Инициализация Сокета
         self.init_socket()
 
-        # основной цикл программы сервера
+        # Основной цикл программы сервера
         while self.running:
-            # Ждем подключения, если таймаут вышел, ловим исключение
+            # Ждём подключения, если таймаут вышел, ловим исключение.
             try:
                 client, client_address = self.sock.accept()
             except OSError:
                 pass
             else:
-                logger.info(f'Установленно соединение с ПК {client_address}')
+                logger.info(f'Установлено соедение с ПК {client_address}')
                 client.settimeout(5)
                 self.clients.append(client)
 
             recv_data_lst = []
             send_data_lst = []
             err_lst = []
-
-            # Проверяем наличие ждущих клиентов
+            # Проверяем на наличие ждущих клиентов
             try:
                 if self.clients:
                     recv_data_lst, self.listen_sockets, self.error_sockets = select.select(
@@ -78,19 +81,22 @@ class MessageProcessor(threading.Thread):
             except OSError as err:
                 logger.error(f'Ошибка работы с сокетами: {err.errno}')
 
-            # Принимаем сообщения и если ошибка исключаем клиента
+            # принимаем сообщения и если ошибка, исключаем клиента.
             if recv_data_lst:
                 for client_with_message in recv_data_lst:
                     try:
-                        self.process_client_message(get_message(client_with_message), client_with_message)
+                        self.process_client_message(
+                            get_message(client_with_message), client_with_message)
                     except (OSError, json.JSONDecodeError, TypeError) as err:
                         logger.debug(f'Getting data from client exception.', exc_info=err)
                         self.remove_client(client_with_message)
 
     def remove_client(self, client):
-        """Метод обработчик клиента с которым прервана связь
-        Ищет клиента и удаляет его из списков и базы"""
-        logger.info(f'Клиент {client.getpeername()} отключился от сервера')
+        '''
+        Метод обработчик клиента с которым прервана связь.
+        Ищет клиента и удаляет его из списков и базы:
+        '''
+        logger.info(f'Клиент {client.getpeername()} отключился от сервера.')
         for name in self.names:
             if self.names[name] == client:
                 self.database.user_logout(name)
@@ -100,7 +106,7 @@ class MessageProcessor(threading.Thread):
         client.close()
 
     def init_socket(self):
-        '''Инициализатор сокета'''
+        '''Метод инициализатор сокета.'''
         logger.info(
             f'Запущен сервер, порт для подключений: {self.port} , адрес с которого принимаются подключения: {self.addr}. Если адрес не указан, принимаются соединения с любых адресов.')
         # Готовим сокет
@@ -114,8 +120,11 @@ class MessageProcessor(threading.Thread):
         self.sock.listen(MAX_CONNECTIONS)
 
     def process_message(self, message):
-        """Метод отправки сообщения клиенту"""
-        if message[DESTINATION] in self.names and self.names[message[DESTINATION]] in self.listen_sockets:
+        '''
+        Метод отправки сообщения клиенту.
+        '''
+        if message[DESTINATION] in self.names and self.names[message[DESTINATION]
+        ] in self.listen_sockets:
             try:
                 send_message(self.names[message[DESTINATION]], message)
                 logger.info(
@@ -132,14 +141,14 @@ class MessageProcessor(threading.Thread):
 
     @login_required
     def process_client_message(self, message, client):
-        """Обработчик поступающих сообщений"""
-        logger.debug(f'Разбор сообщения от клиента: {message}')
-        # Если это сообщение о присутствии принимаем и отвечаем
+        """ Метод обработчик поступающих сообщений. """
+        logger.debug(f'Разбор сообщения от клиента : {message}')
+        # Если это сообщение о присутствии, принимаем и отвечаем
         if ACTION in message and message[ACTION] == PRESENCE and TIME in message and USER in message:
-            # Если это сообщение о присутствии вызываем функцию авторизации
-            self.authorize_user(message, client)
+            # Если сообщение о присутствии то вызываем функцию авторизации.
+            self.autorize_user(message, client)
 
-        # Если это сообщение то отправляем его получателю
+        # Если это сообщение, то отправляем его получателю.
         elif ACTION in message and message[ACTION] == MESSAGE and DESTINATION in message and TIME in message \
                 and SENDER in message and MESSAGE_TEXT in message and self.names[message[SENDER]] == client:
             if message[DESTINATION] in self.names:
@@ -152,16 +161,16 @@ class MessageProcessor(threading.Thread):
                     self.remove_client(client)
             else:
                 response = RESPONSE_400
-                response[ERROR] = 'Пользователь не зарегистрирован на сервере!'
+                response[ERROR] = 'Пользователь не зарегистрирован на сервере.'
                 try:
                     send_message(client, response)
                 except OSError:
                     pass
             return
 
-            # Если клиент выходит
+        # Если клиент выходит
         elif ACTION in message and message[ACTION] == EXIT and ACCOUNT_NAME in message \
-                 and self.names[message[ACCOUNT_NAME]] == client:
+                and self.names[message[ACCOUNT_NAME]] == client:
             self.remove_client(client)
 
         # Если это запрос контакт-листа
@@ -207,45 +216,58 @@ class MessageProcessor(threading.Thread):
         elif ACTION in message and message[ACTION] == PUBLIC_KEY_REQUEST and ACCOUNT_NAME in message:
             response = RESPONSE_511
             response[DATA] = self.database.get_pubkey(message[ACCOUNT_NAME])
-            # Если пользователь никогда не логинился(ключа еще нет), шлем 400
+            # может быть, что ключа ещё нет (пользователь никогда не логинился,
+            # тогда шлём 400)
             if response[DATA]:
                 try:
                     send_message(client, response)
                 except OSError:
                     self.remove_client(client)
-                else:
-                    response = RESPONSE_400
-                    response[ERROR] = 'Нет публичного ключа для данного пользователя!'
-                    try:
-                        send_message(client, response)
-                    except OSError:
-                        self.remove_client(client)
+            else:
+                response = RESPONSE_400
+                response[ERROR] = 'Нет публичного ключа для данного пользователя'
+                try:
+                    send_message(client, response)
+                except OSError:
+                    self.remove_client(client)
 
         # Иначе отдаём Bad request
         else:
             response = RESPONSE_400
-            response[ERROR] = 'Запрос некорректен!'
+            response[ERROR] = 'Запрос некорректен.'
             try:
                 send_message(client, response)
             except OSError:
                 self.remove_client(client)
 
-    def authorize_user(self, message, sock):
-        """Метод реализующий авторизацию пользователей"""
+    def autorize_user(self, message, sock):
+        """ Метод реализующий авторизацию пользователей. """
         # Если имя пользователя уже занято то возвращаем 400
-        logger.debug(f'Старт процесса авторизации для пользователя  {message[USER]}')
+        logger.debug(f'Start auth process for {message[USER]}')
         if message[USER][ACCOUNT_NAME] in self.names.keys():
             response = RESPONSE_400
-            response[ERROR] = 'Имя пользователя уже занято!'
+            response[ERROR] = 'Имя пользователя уже занято.'
             try:
-                logger.debug(f'Имя пользователя занято, отправка: {response}')
+                logger.debug(f'Username busy, sending {response}')
+                send_message(sock, response)
+            except OSError:
+                logger.debug('OS Error')
+                pass
+            self.clients.remove(sock)
+            sock.close()
+        # Проверяем что пользователь зарегистрирован на сервере.
+        elif not self.database.check_user(message[USER][ACCOUNT_NAME]):
+            response = RESPONSE_400
+            response[ERROR] = 'Пользователь не зарегистрирован.'
+            try:
+                logger.debug(f'Unknown username, sending {response}')
                 send_message(sock, response)
             except OSError:
                 pass
             self.clients.remove(sock)
             sock.close()
         else:
-            logger.debug('Правильное имя пользователя, проверка пароля!')
+            logger.debug('Correct username, starting passwd check.')
             # Иначе отвечаем 511 и проводим процедуру авторизации
             # Словарь - заготовка
             message_auth = RESPONSE_511
@@ -263,7 +285,7 @@ class MessageProcessor(threading.Thread):
                 send_message(sock, message_auth)
                 ans = get_message(sock)
             except OSError as err:
-                logger.debug('Ошибка в авторизации, данные:', exc_info=err)
+                logger.debug('Error in auth, data:', exc_info=err)
                 sock.close()
                 return
             client_digest = binascii.a2b_base64(ans[DATA])

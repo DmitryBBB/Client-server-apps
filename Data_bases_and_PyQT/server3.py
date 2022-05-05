@@ -9,8 +9,8 @@ from PyQt5.QtWidgets import QApplication
 from Data_bases_and_PyQT.server.core import MessageProcessor
 from Data_bases_and_PyQT.server.server_db_decl import ServerDB
 from Data_bases_and_PyQT.server.main_window import MainWindow
-from common.veriables import DEFAULT_PORT
-from decorator import log
+from Data_bases_and_PyQT.common.veriables import DEFAULT_PORT
+from Data_bases_and_PyQT.common.decorator import log
 
 # Инициализация логирования сервера.
 logger = logging.getLogger('server_dist')
