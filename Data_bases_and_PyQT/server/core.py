@@ -6,14 +6,13 @@ import logging
 import os
 import select
 import socket
+import sys
 import threading
 
-from Data_bases_and_PyQT.common.veriables import PUBLIC_KEY_REQUEST, RESPONSE_511, DATA, PUBLIC_KEY, RESPONSE_205
-from Data_bases_and_PyQT.descriptrs import Port
-from common.utils import send_message, get_message
-from common.veriables import MAX_CONNECTIONS, DESTINATION, ACTION, RESPONSE_400, SENDER, MESSAGE, MESSAGE_TEXT, TIME, \
-    RESPONSE_200, ERROR, PRESENCE, USER, EXIT, ACCOUNT_NAME, GET_CONTACTS, RESPONSE_202, LIST_INFO, ADD_CONTACT, \
-    REMOVE_CONTACT, USERS_REQUEST, RESPONSE
+from Data_bases_and_PyQT.common.decorator import *
+from Data_bases_and_PyQT.common.descriptrs import Port
+from Data_bases_and_PyQT.common.utils import *
+from Data_bases_and_PyQT.common.veriables import *
 
 logger = logging.getLogger('server_dist')
 
@@ -131,6 +130,7 @@ class MessageProcessor(threading.Thread):
             logger.error(
                 f'Пользователь {message[DESTINATION]} не зарегистрирован на сервере, отправка сообщения невозможна.')
 
+    @login_required
     def process_client_message(self, message, client):
         """Обработчик поступающих сообщений"""
         logger.debug(f'Разбор сообщения от клиента: {message}')
