@@ -1,4 +1,4 @@
-""" Класс диалог регистрации пользователя на сервере. """
+
 import binascii
 import hashlib
 
@@ -6,6 +6,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QLabel, QLineEdit, QPushButton, QMessageBox, QApplication
 
 from Data_bases_and_PyQT.server.server_db_decl import ServerDB
+
+
+""" Класс диалог регистрации пользователя на сервере. """
 
 
 class RegisterUser(QDialog):

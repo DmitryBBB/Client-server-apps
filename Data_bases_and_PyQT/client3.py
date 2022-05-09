@@ -11,8 +11,8 @@ from Data_bases_and_PyQT.common.errors import ServerError
 from Data_bases_and_PyQT.common.decorator import log
 from Data_bases_and_PyQT.client.client_db_decl import ClientDatabase
 from Data_bases_and_PyQT.client.transport import ClientTransport
-from client.main_window import ClientMainWindow
-from client.start_dialog import UserNameDialog
+from Data_bases_and_PyQT.client.main_window import ClientMainWindow
+from Data_bases_and_PyQT.client.start_dialog import UserNameDialog
 
 # Инициализация клиентского логера
 logger = logging.getLogger('client_dist')
@@ -21,8 +21,7 @@ logger = logging.getLogger('client_dist')
 # Парсер аргументов коммандной строки
 @log
 def arg_parser():
-    """
-    Парсер аргументов командной строки, возвращает кортеж из 4 элементов
+    """Парсер аргументов командной строки, возвращает кортеж из 4 элементов
     адрес сервера, порт, имя пользователя, пароль.
     Выполняет проверку на корректность номера порта.
     """
@@ -37,7 +36,7 @@ def arg_parser():
     client_name = namespace.name
     client_passwd = namespace.password
 
-    # проверим подходящий номер порта
+    # Проверим подходящий номер порта
     if not 1023 < server_port < 65536:
         logger.critical(
             f'Попытка запуска клиента с неподходящим номером порта: {server_port}. '
@@ -65,13 +64,16 @@ if __name__ == '__main__':
         if start_dialog.ok_pressed:
             client_name = start_dialog.client_name.text()
             client_passwd = start_dialog.client_passwd.text()
-            logger.debug(f'Using USERNAME = {client_name}, PASSWD = {client_passwd}.')
+            logger.debug(f'Using USERNAME = {client_name},'
+                         f' PASSWD = {client_passwd}.')
         else:
             exit(0)
 
     # Записываем логи
     logger.info(
-        f'Запущен клиент с параметрами: адрес сервера: {server_address} , порт: {server_port},'
+        f'Запущен клиент с параметрами: '
+        f'адрес сервера: {server_address},'
+        f' порт: {server_port},'
         f' имя пользователя: {client_name}')
 
     # Загружаем ключи с файла, если же файла нет, то генерируем новую пару.

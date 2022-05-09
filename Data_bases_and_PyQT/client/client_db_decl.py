@@ -1,10 +1,11 @@
-"""БАЗА ДАННЫХ СЕРВЕРА"""
 import datetime
 import os
 
 from sqlalchemy import Column, Integer, String, Text, DateTime, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+"""БАЗА ДАННЫХ СЕРВЕРА"""
 
 
 class ClientDatabase:
@@ -20,7 +21,7 @@ class ClientDatabase:
             self.id = None
             self.username = user
 
-    # Класс отоброжение таблицы истории сообщений
+    # Класс отображение таблицы истории сообщений
     class MessageStat(Base):
         __tablename__ = 'message_history'
         id = Column(Integer, primary_key=True)
@@ -75,7 +76,7 @@ class ClientDatabase:
         """ Метод добавляющий контакт в базу данных. """
         if not self.session.query(
                 self.Contacts).filter_by(
-                name=contact).count():
+            name=contact).count():
             contact_row = self.Contacts(contact)
             self.session.add(contact_row)
             self.session.commit()
@@ -118,7 +119,7 @@ class ClientDatabase:
         """ Метод, проверяющий существует ли пользователь. """
         if self.session.query(
                 self.KnowUsers).filter_by(
-                username=user).count():
+                    username=user).count():
             return True
         else:
             return False
@@ -140,22 +141,4 @@ class ClientDatabase:
                  history_row.message,
                  history_row.date) for history_row in query.all()]
 
-
-
-# if __name__ == '__main__':
-#     test_db = ClientDatabase('test1')
-#     for i in ['test3', 'test4', 'test5']:
-#         test_db.add_contact(i)
-#     test_db.add_contact('test4')
-#     test_db.add_users(['test1', 'test2', 'test3', 'test4', 'test5'])
-#     test_db.save_message('test2', 'in',
-#                          f'Привет! я тестовое сообщение от {datetime.datetime.now()}!')
-#     test_db.save_message('test2', 'out',
-#                          f'Привет! я другое тестовое сообщение от {datetime.datetime.now()}!')
-#     print(test_db.get_contacts())
-#     print(test_db.get_users())
-#     print(test_db.check_user('test1'))
-#     print(test_db.check_user('test10'))
-#     print(sorted(test_db.get_history('test2'), key=lambda item: item[3]))
-#     test_db.del_contact('test4')
-#     print(test_db.get_contacts())
+#
