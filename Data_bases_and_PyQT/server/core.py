@@ -251,7 +251,7 @@ class MessageProcessor(threading.Thread):
     def autorize_user(self, message, sock):
         """Метод реализующий авторизацию пользователей. """
         # Если имя пользователя уже занято то возвращаем 400
-        logger.debug(f'Start auth process for {message[USER]}')
+        logger.debug(f'Запущен процесс авторизации для {message[USER]}')
         if message[USER][ACCOUNT_NAME] in self.names.keys():
             response = RESPONSE_400
             response[ERROR] = 'Имя пользователя уже занято.'
