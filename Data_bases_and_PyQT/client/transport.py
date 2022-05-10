@@ -77,7 +77,7 @@ class ClientTransport(threading.Thread, QObject):
                 pass
             else:
                 connected = True
-                logger.debug("Connection established.")
+                logger.debug("Соединение установлено.")
                 break
             time.sleep(1)
 
@@ -86,7 +86,7 @@ class ClientTransport(threading.Thread, QObject):
             logger.critical('Не удалось установить соединение с сервером')
             raise ServerError('Не удалось установить соединение с сервером')
 
-        logger.debug('Starting auth dialog.')
+        logger.debug('Запуск диалогового окна авторизации.')
 
         # Запускаем процедуру авторизации
         # Получаем хэш пароля
@@ -95,7 +95,7 @@ class ClientTransport(threading.Thread, QObject):
         passwd_hash = hashlib.pbkdf2_hmac('sha512', passwd_bytes, salt, 10000)
         passwd_hash_string = binascii.hexlify(passwd_hash)
 
-        logger.debug(f'Passwd hash ready: {passwd_hash_string}')
+        logger.debug(f'Хэш пароля готов: {passwd_hash_string}')
 
         # Получаем публичный ключ и декодируем его из байтов
         pubkey = self.keys.publickey().export_key().decode('ascii')
@@ -110,12 +110,12 @@ class ClientTransport(threading.Thread, QObject):
                     PUBLIC_KEY: pubkey
                 }
             }
-            logger.debug(f"Presense message = {presense}")
+            logger.debug(f"Сообщение о присутствии = {presense}")
             # Отправляем серверу приветственное сообщение.
             try:
                 send_message(self.transport, presense)
                 ans = get_message(self.transport)
-                logger.debug(f'Server response = {ans}.')
+                logger.debug(f'Ответ сервера = {ans}.')
                 # Если сервер вернул ошибку, бросаем исключение.
                 if RESPONSE in ans:
                     if ans[RESPONSE] == 400:
@@ -132,7 +132,7 @@ class ClientTransport(threading.Thread, QObject):
                         send_message(self.transport, my_ans)
                         self.process_server_ans(get_message(self.transport))
             except (OSError, json.JSONDecodeError) as err:
-                logger.debug(f'Connection error.', exc_info=err)
+                logger.debug(f'Ошибка соединения.', exc_info=err)
                 raise ServerError('Сбой соединения в процессе авторизации.')
 
     def process_server_ans(self, message):

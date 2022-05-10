@@ -6,6 +6,7 @@ import select
 import socket
 import threading
 
+from Data_bases_and_PyQT.logs import config_server_log
 from Data_bases_and_PyQT.common.decorator import login_required
 from Data_bases_and_PyQT.common.descriptrs import Port
 from Data_bases_and_PyQT.common.utils import send_message, get_message
@@ -103,7 +104,9 @@ class MessageProcessor(threading.Thread):
     def init_socket(self):
         """Метод инициализатор сокета."""
         logger.info(
-            f'Запущен сервер, порт для подключений: {self.port} , адрес с которого принимаются подключения: {self.addr}. Если адрес не указан, принимаются соединения с любых адресов.')
+            f'Запущен сервер, порт для подключений: {self.port} ,'
+            f' адрес с которого принимаются подключения: {self.addr}.'
+            f' Если адрес не указан, принимаются соединения с любых адресов.')
         # Готовим сокет
         transport = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         transport.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -253,10 +256,10 @@ class MessageProcessor(threading.Thread):
             response = RESPONSE_400
             response[ERROR] = 'Имя пользователя уже занято.'
             try:
-                logger.debug(f'Username busy, sending {response}')
+                logger.debug(f'Имя пользователя занято, отправка {response}')
                 send_message(sock, response)
             except OSError:
-                logger.debug('OS Error')
+                logger.debug('Ошибка операционной системы')
                 pass
             self.clients.remove(sock)
             sock.close()
@@ -265,14 +268,14 @@ class MessageProcessor(threading.Thread):
             response = RESPONSE_400
             response[ERROR] = 'Пользователь не зарегистрирован.'
             try:
-                logger.debug(f'Unknown username, sending {response}')
+                logger.debug(f'Неизвестное имя пользователя, отправляющее {response}')
                 send_message(sock, response)
             except OSError:
                 pass
             self.clients.remove(sock)
             sock.close()
         else:
-            logger.debug('Correct username, starting passwd check.')
+            logger.debug('Правильное имя пользователя, проверка строкового пароля.')
             # Иначе отвечаем 511 и проводим процедуру авторизации
             # Словарь - заготовка
             message_auth = RESPONSE_511
@@ -285,13 +288,13 @@ class MessageProcessor(threading.Thread):
             hash = hmac.new(self.database.get_hash(message[USER][ACCOUNT_NAME]),
                             random_str, 'MD5')
             digest = hash.digest()
-            logger.debug(f'Auth message = {message_auth}')
+            logger.debug(f'Сообщение авторизации = {message_auth}')
             try:
                 # Обмен с клиентом
                 send_message(sock, message_auth)
                 ans = get_message(sock)
             except OSError as err:
-                logger.debug('Error in auth, data:', exc_info=err)
+                logger.debug('Ошибка в авторизации, данные:', exc_info=err)
                 sock.close()
                 return
             client_digest = binascii.a2b_base64(ans[DATA])

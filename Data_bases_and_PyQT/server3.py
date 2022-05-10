@@ -4,8 +4,11 @@ import configparser
 import logging
 import os
 import sys
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
+
+from Data_bases_and_PyQT.logs import config_server_log
 from Data_bases_and_PyQT.server.core import MessageProcessor
 from Data_bases_and_PyQT.server.server_db_decl import ServerDB
 from Data_bases_and_PyQT.server.main_window import MainWindow

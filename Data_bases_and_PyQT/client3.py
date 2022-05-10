@@ -1,11 +1,12 @@
 import logging
-import logs.config_client_log
 import argparse
 import sys
 import os
+
 from Cryptodome.PublicKey import RSA
 from PyQt5.QtWidgets import QApplication, QMessageBox
 
+from Data_bases_and_PyQT.logs import config_client_log
 from Data_bases_and_PyQT.common.veriables import *
 from Data_bases_and_PyQT.common.errors import ServerError
 from Data_bases_and_PyQT.common.decorator import log
@@ -50,7 +51,7 @@ def arg_parser():
 if __name__ == '__main__':
     # Загружаем параметы коммандной строки
     server_address, server_port, client_name, client_passwd = arg_parser()
-    logger.debug('Args loaded')
+    logger.debug('Аргументы загружены')
 
     # Создаём клиентокое приложение
     client_app = QApplication(sys.argv)
@@ -64,8 +65,8 @@ if __name__ == '__main__':
         if start_dialog.ok_pressed:
             client_name = start_dialog.client_name.text()
             client_passwd = start_dialog.client_passwd.text()
-            logger.debug(f'Using USERNAME = {client_name},'
-                         f' PASSWD = {client_passwd}.')
+            logger.debug(f'Использование ИМЕНИ ПОЛЬЗОВАТЕЛЯ = {client_name},'
+                         f' Пароль = {client_passwd}.')
         else:
             exit(0)
 
@@ -88,7 +89,7 @@ if __name__ == '__main__':
             keys = RSA.import_key(key.read())
 
     # !!!keys.publickey().export_key()
-    logger.debug("Keys successfully loaded.")
+    logger.debug("Ключи успешно загружены.")
     # Создаём объект базы данных
     database = ClientDatabase(client_name)
     # Создаём объект - транспорт и запускаем транспортный поток
@@ -100,7 +101,7 @@ if __name__ == '__main__':
             client_name,
             client_passwd,
             keys)
-        logger.debug("Transport ready.")
+        logger.debug("Транспорт готов.")
     except ServerError as error:
         message = QMessageBox()
         message.critical(start_dialog, 'Ошибка сервера', error.text)

@@ -1,14 +1,12 @@
-import sys
+import logging
 import os
+import sys
 
 from Data_bases_and_PyQT.common.veriables import LOGGING_LEVEL
 
-sys.path.append('../')
-import logging
-
-
 # создаём формировщик логов (formatter):
-client_formatter = logging.Formatter('%(asctime)s %(levelname)s %(filename)s %(message)s')
+client_formatter = logging.Formatter('%(asctime)s %(levelname)s'
+                                     ' %(filename)s %(message)s')
 
 # Подготовка имени файла для логирования
 path = os.path.dirname(os.path.abspath(__file__))
