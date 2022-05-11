@@ -84,3 +84,22 @@
 2022-05-09 13:00:26,439 DEBUG transport.py Запущен процесс - приёмник собщений с сервера.
 2022-05-09 13:00:54,519 CRITICAL transport.py Потеряно соединение с сервером.
 2022-05-09 13:00:56,705 DEBUG transport.py Транспорт завершает работу.
+2022-05-10 19:57:24,045 DEBUG client3.py Аргументы загружены
+2022-05-10 19:57:35,951 DEBUG client3.py Использование ИМЕНИ ПОЛЬЗОВАТЕЛЯ = nana, Пароль = 123456.
+2022-05-10 19:57:35,951 INFO client3.py Запущен клиент с параметрами: адрес сервера: 127.0.0.1, порт: 7777, имя пользователя: nana
+2022-05-10 19:57:36,036 DEBUG client3.py Ключи успешно загружены.
+2022-05-10 19:57:36,137 INFO transport.py Попытка подключения №1
+2022-05-10 19:57:36,138 DEBUG transport.py Соединение установлено.
+2022-05-10 19:57:36,138 DEBUG transport.py Запуск диалогового окна авторизации.
+2022-05-10 19:57:36,146 DEBUG transport.py Хэш пароля готов: b'11c8c511b40f4d15058d9400f55caa892e7af769d71926b0b36314d80f4bc2f515ec24e34840951f5e3c24d06554415ad7a35f69bb32b1e1682fe7afb480925d'
+2022-05-10 19:57:36,146 DEBUG transport.py Сообщение о присутствии = {'action': 'presence', 'time': 1652201856.1469808, 'user': {'account_name': 'nana', 'pubkey': '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp4SOgKnSd1K2QL/6pI3+\nbF/tyI2+GGWmRP18igcSxEF57RATYoC2CNqoqrNiX3S8NDxnWvl2E8+eztX5Zu/Y\nOgapAFgQZ0GJ21ThfXuDHvPna4QJpHcKk/5gHeiTMbp3LOyPzldyrp+Dn6HkoQRr\nLSbGJg5CVqZ2aXdlYMoaqngFwwr+CpGRXS/0iG3qKa7bBXRzfi1/Pjv7xBllk/1l\n0BKgj3tYgVboVYGH1G9LlS7sTyClhIECJOa620+Mq1OPui/MBnC5+5V445mBXlEY\nXztfr/SZFrps4pg9NXjsmlF6hZp7vibFJjqBDr3NY6jVJkfRPSXZ4GtG11dbw0/g\nHQIDAQAB\n-----END PUBLIC KEY-----'}}
+2022-05-10 19:57:36,643 DEBUG transport.py Ответ сервера = {'response': 511, 'bin': '55c9e51a52d8c82ceb6bdbc5b08c5abe17ce004eef9d93bd0f9e5c9b937ca546d38c5781a21df585e87dc4e0362debde7c04edd8ab8b6ba273327ff065fc210f'}.
+2022-05-10 19:57:36,644 DEBUG transport.py Разбор сообщения от сервера: {'response': 200}
+2022-05-10 19:57:36,644 DEBUG transport.py Запрос списка известных пользователей nana
+2022-05-10 19:57:37,379 DEBUG transport.py Запрос контакт листа для пользователя Thread-1
+2022-05-10 19:57:37,379 DEBUG transport.py Сформирован запрос {'action': 'get_contacts', 'time': 1652201857.3796499, 'user': 'nana'}
+2022-05-10 19:57:37,714 DEBUG transport.py Получен ответ {'response': 202, 'data_list': []}
+2022-05-10 19:57:37,715 DEBUG client3.py Транспорт готов.
+2022-05-10 19:57:37,715 DEBUG transport.py Запущен процесс - приёмник собщений с сервера.
+2022-05-10 19:57:49,239 CRITICAL transport.py Потеряно соединение с сервером.
+2022-05-10 19:57:53,217 DEBUG transport.py Транспорт завершает работу.

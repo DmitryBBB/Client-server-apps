@@ -288,10 +288,11 @@ class ServerDB:
         # Возвращаем список кортежей
         return query.all()
 
-# if __name__ == '__main__':
-#     test_db = ServerDB('server_base.db3')
-#     test_db.user_login('1111', '192.168.1.113', 8080)
-#     test_db.user_login('McG2', '192.168.1.113', 8081)
+
+if __name__ == '__main__':
+    test_db = ServerDB('server_base.db3')
+    # test_db.user_login('1111', '192.168.1.113', 8080)
+    # test_db.user_login('McG2', '192.168.1.113', 8081)
 #     print(test_db.users_list())
 #     # print(test_db.active_users_list())
 #     # test_db.user_logout('McG')

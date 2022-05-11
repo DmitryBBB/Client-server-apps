@@ -1,4 +1,4 @@
-# Диалог выбора контакта для добавления
+
 import logging
 import sys
 
@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QDialog, QLabel, QComboBox, QPushButton, QApplicatio
 
 logger = logging.getLogger('client_dist')
 
-
+# Диалог выбора контакта для добавления
 class AddContactDialog(QDialog):
     def __init__(self, transport, database):
         super().__init__()

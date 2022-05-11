@@ -141,4 +141,19 @@ class ClientDatabase:
                  history_row.message,
                  history_row.date) for history_row in query.all()]
 
-#
+
+if __name__ == '__main__':
+    test_db = ClientDatabase('test1')
+    # for i in ['test3', 'test4', 'test5']:
+    #    test_db.add_contact(i)
+    # test_db.add_contact('test4')
+    # test_db.add_users(['test1', 'test2', 'test3', 'test4', 'test5'])
+    # test_db.save_message('test2', 'in', f'Привет! я тестовое сообщение от {datetime.datetime.now()}!')
+    # test_db.save_message('test2', 'out', f'Привет! я другое тестовое сообщение от {datetime.datetime.now()}!')
+    # print(test_db.get_contacts())
+    # print(test_db.get_users())
+    # print(test_db.check_user('test1'))
+    # print(test_db.check_user('test10'))
+    print(sorted(test_db.get_history('test2'), key=lambda item: item[3]))
+    # test_db.del_contact('test4')
+    # print(test_db.get_contacts())
